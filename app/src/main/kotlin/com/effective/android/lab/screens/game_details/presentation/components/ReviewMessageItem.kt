@@ -49,26 +49,23 @@ fun ReviewMessageItem(
                 Text(
                     text = "${stringResource(reviewMessage.user.firstName)} " +
                             stringResource(reviewMessage.user.lastName),
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        fontWeight = FontWeight.W400,
-                        color = MaterialTheme.colorScheme.primary,
-                    ),
+                    fontWeight = FontWeight.W400,
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.labelSmall,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = dateFormatter.format(reviewMessage.date),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.primary.copy(alpha = .4F),
-                    ),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = .4F),
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }
         Spacer(modifier = Modifier.height(18.dp))
         Text(
             text = stringResource(id = reviewMessage.review),
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.secondary,
-            ),
+            color = MaterialTheme.colorScheme.secondary,
+            style = MaterialTheme.typography.bodyMedium,
         )
     }
 }

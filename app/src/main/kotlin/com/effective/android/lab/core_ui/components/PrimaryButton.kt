@@ -40,9 +40,8 @@ fun PrimaryButton(
     ) {
         Text(
             text = stringResource(text),
-            style = MaterialTheme.typography.labelMedium.copy(
-                MaterialTheme.colorScheme.background,
-            ),
+            color = MaterialTheme.colorScheme.background,
+            style = MaterialTheme.typography.labelMedium,
         )
     }
 }
