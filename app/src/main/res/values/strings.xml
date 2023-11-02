@@ -20,4 +20,7 @@
     <string name="review_message_item">Review message item</string>
     <string name="reviews_count">70M</string>
     <string name="reviews">Reviews</string>
+    <string name="moba">Moba</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="strategy">Strategy</string>
 </resources>
