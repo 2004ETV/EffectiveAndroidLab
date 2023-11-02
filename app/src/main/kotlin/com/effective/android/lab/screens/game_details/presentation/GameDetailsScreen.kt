@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +40,9 @@ import com.effective.android.lab.core.extensions.drawGlow
 import com.effective.android.lab.core_ui.components.PrimaryButton
 import com.effective.android.lab.screens.game_details.presentation.components.GameImageItem
 import com.effective.android.lab.screens.game_details.presentation.components.GameLogo
+import com.effective.android.lab.screens.game_details.presentation.components.ReviewMessageItem
+import com.effective.android.lab.screens.game_details.presentation.models.ReviewMessageItemUI
+import com.effective.android.lab.screens.game_details.presentation.models.UserItemUI
 import com.effective.android.lab.ui.theme.EffectiveAndroidLabTheme
 
 @Composable
@@ -47,6 +51,26 @@ fun GameDetailsScreen() {
     val gameImages = listOf(
         R.drawable.first_image,
         R.drawable.second_image,
+    )
+    val reviewMessages = listOf(
+        ReviewMessageItemUI(
+            user = UserItemUI(
+                photo = R.drawable.first_user,
+                firstName = R.string.first_user_first_name,
+                lastName = R.string.first_user_last_name
+            ),
+            date = 1550134475000,
+            review = R.string.first_review,
+        ),
+        ReviewMessageItemUI(
+            user = UserItemUI(
+                photo = R.drawable.second_user,
+                firstName = R.string.second_user_first_name,
+                lastName = R.string.second_user_last_name
+            ),
+            date = 1550134475000,
+            review = R.string.second_review,
+        ),
     )
     val scrollState = rememberScrollState()
 
@@ -90,7 +114,7 @@ fun GameDetailsScreen() {
                     modifier = Modifier.padding(horizontal = 24.dp),
                     text = stringResource(id = R.string.dota_2_description),
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7F),
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = .7F),
                     ),
                 )
                 Spacer(modifier = Modifier.height(46.dp))
@@ -120,6 +144,27 @@ fun GameDetailsScreen() {
                     text = R.string.install,
                     onClick = { /*TODO*/ },
                 )
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    modifier = Modifier.padding(horizontal = 24.dp),
+                    text = stringResource(R.string.review_ratings),
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        color = MaterialTheme.colorScheme.primary,
+                    ),
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                for ((index, item) in reviewMessages.withIndex()) {
+                    ReviewMessageItem(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        reviewMessage = item
+                    )
+                    if (index != reviewMessages.size - 1) {
+                        Divider(
+                            modifier = Modifier.padding(24.dp),
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                        )
+                    }
+                }
                 Spacer(
                     modifier = Modifier
                         .navigationBarsPadding()
@@ -132,6 +177,7 @@ fun GameDetailsScreen() {
                     .align(Alignment.TopStart),
                 logo = R.drawable.dota_2_logo,
             )
+
         }
         Box(
             modifier = Modifier

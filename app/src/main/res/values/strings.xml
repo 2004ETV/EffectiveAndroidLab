@@ -9,4 +9,12 @@
     <string name="game_image">Game image</string>
     <string name="install">Install</string>
     <string name="dota_2_logo">Dota 2 logo</string>
+    <string name="review_ratings"><![CDATA[Review & Ratings]]></string>
+    <string name="first_user_first_name">Auguste</string>
+    <string name="first_user_last_name">Conte</string>
+    <string name="first_review">“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”</string>
+    <string name="second_review">“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”</string>
+    <string name="second_user_first_name">Jang</string>
+    <string name="second_user_last_name">Marcelino</string>
+    <string name="review_message_item">Review message item</string>
 </resources>
