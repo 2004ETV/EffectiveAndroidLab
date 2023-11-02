@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Effective Android Lab</string>
+    <string name="dota_2_cover_description">Dota 2 logo</string>
+    <string name="dota_2_description">Dota 2 is a multiplayer online battle arena (MOBA)
+        game which has two teams of five players compete to collectively destroy a large
+        structure defended by the opposing team known as the "Ancient", whilst defending
+        their own.
+    </string>
+    <string name="game_image">Game image</string>
+    <string name="install">Install</string>
+    <string name="dota_2_logo">Dota 2 logo</string>
 </resources>
