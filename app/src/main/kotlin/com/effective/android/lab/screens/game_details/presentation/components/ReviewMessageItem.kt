@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -18,9 +19,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.effective.android.lab.R
 import com.effective.android.lab.screens.game_details.presentation.models.ReviewMessageItemUI
+import com.effective.android.lab.screens.game_details.presentation.models.UserItemUI
+import com.effective.android.lab.ui.theme.EffectiveAndroidLabTheme
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -64,6 +68,30 @@ fun ReviewMessageItem(
             text = stringResource(id = reviewMessage.review),
             style = MaterialTheme.typography.bodyMedium.copy(
                 color = MaterialTheme.colorScheme.secondary,
+            ),
+        )
+    }
+}
+
+@Preview(
+    name = "Review message item preview",
+    group = "Game details screen components",
+    showBackground = true,
+    backgroundColor = 2,
+)
+@Composable
+fun ReviewMessageItemPreview() {
+    EffectiveAndroidLabTheme {
+        ReviewMessageItem(
+            modifier = Modifier.padding(20.dp),
+            reviewMessage = ReviewMessageItemUI(
+                user = UserItemUI(
+                    photo = R.drawable.first_user,
+                    firstName = R.string.first_user_first_name,
+                    lastName = R.string.first_user_last_name
+                ),
+                date = 1550134475000,
+                review = R.string.first_review,
             ),
         )
     }

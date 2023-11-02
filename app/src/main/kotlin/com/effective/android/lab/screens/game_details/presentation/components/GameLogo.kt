@@ -45,7 +45,7 @@ fun GameLogo(
 
 @Preview(
     name = "Game logo preview",
-    group = "Game details components",
+    group = "Game details screen components",
     showBackground = true,
 )
 @Composable
