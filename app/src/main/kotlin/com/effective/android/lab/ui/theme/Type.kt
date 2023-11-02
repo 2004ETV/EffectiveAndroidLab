@@ -31,16 +31,16 @@ val Typography = Typography(
         fontWeight = FontWeight.W700,
         fontSize = 20.sp,
         lineHeight = 26.sp,
-        letterSpacing = 0.5.sp,
+        letterSpacing = .5.sp,
     ),
     labelSmall = TextStyle(
         fontFamily = SKModernistFontFamily,
         fontWeight = FontWeight.W700,
         fontSize = 16.sp,
-        letterSpacing = 0.6.sp,
+        letterSpacing = .6.sp,
         lineHeight = 19.2.sp,
     ),
-    bodyLarge = TextStyle(
+    bodyMedium = TextStyle(
         fontFamily = SKModernistFontFamily,
         fontWeight = FontWeight.W400,
         fontSize = 12.sp,
