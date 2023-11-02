@@ -47,4 +47,9 @@ val Typography = Typography(
         letterSpacing = 0.sp,
         lineHeight = 19.sp,
     ),
+    bodySmall = TextStyle(
+        fontFamily = MontserratFontFamily,
+        fontWeight = FontWeight.W500,
+        fontSize = 10.sp,
+    ),
 )
