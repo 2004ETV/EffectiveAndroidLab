@@ -4,10 +4,12 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,11 +22,14 @@ fun GameLogo(
     modifier: Modifier = Modifier,
     @DrawableRes logo: Int,
 ) {
+    val configuration = LocalConfiguration.current
     Surface(
-        modifier = modifier,
+        modifier = modifier.size(
+            (configuration.screenWidthDp / 4.4).dp,
+        ),
         shadowElevation = 30.dp,
         color = MaterialTheme.colorScheme.tertiary,
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.small,
         border = BorderStroke(
             width = 2.dp,
             color = MaterialTheme.colorScheme.primaryContainer,
