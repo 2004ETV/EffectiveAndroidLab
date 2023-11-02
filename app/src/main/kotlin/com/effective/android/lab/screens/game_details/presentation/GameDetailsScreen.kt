@@ -7,13 +7,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -27,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -37,10 +39,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.effective.android.lab.R
 import com.effective.android.lab.core.extensions.drawGlow
+import com.effective.android.lab.core_ui.components.BlackLinearGradient
 import com.effective.android.lab.core_ui.components.PrimaryButton
+import com.effective.android.lab.core_ui.components.RatingBar
 import com.effective.android.lab.screens.game_details.presentation.components.GameImageItem
 import com.effective.android.lab.screens.game_details.presentation.components.GameLogo
 import com.effective.android.lab.screens.game_details.presentation.components.ReviewMessageItem
+import com.effective.android.lab.screens.game_details.presentation.models.RatingModel
 import com.effective.android.lab.screens.game_details.presentation.models.ReviewMessageItemUI
 import com.effective.android.lab.screens.game_details.presentation.models.UserItemUI
 import com.effective.android.lab.ui.theme.EffectiveAndroidLabTheme
@@ -51,6 +56,10 @@ fun GameDetailsScreen() {
     val gameImages = listOf(
         R.drawable.first_image,
         R.drawable.second_image,
+    )
+    val ratingModel = RatingModel(
+        rating = 4.5F,
+        reviewsCount = R.string.reviews_count,
     )
     val reviewMessages = listOf(
         ReviewMessageItemUI(
@@ -85,113 +94,163 @@ fun GameDetailsScreen() {
         )
         Box(
             modifier = Modifier
-                .height(((configuration.screenHeightDp / 1.42) + 40).dp)
+                .height(((configuration.screenHeightDp / 1.42) + 25).dp)
                 .align(Alignment.BottomCenter)
         ) {
             Column(
-                modifier = Modifier
-                    .height((configuration.screenHeightDp / 1.42).dp)
-                    .verticalScroll(scrollState)
-                    .align(Alignment.BottomCenter)
-                    .background(
-                        color = MaterialTheme.colorScheme.background,
-                        shape = RoundedCornerShape(
-                            topStart = 32.dp,
-                            topEnd = 32.dp,
-                        ),
-                    )
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.tertiary,
-                        shape = RoundedCornerShape(
-                            topStart = 32.dp,
-                            topEnd = 32.dp,
-                        ),
-                    ),
-            ) {
-                Spacer(modifier = Modifier.height(120.dp))
-                Text(
-                    modifier = Modifier.padding(horizontal = 24.dp),
-                    text = stringResource(id = R.string.dota_2_description),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.primary.copy(alpha = .7F),
-                    ),
-                )
-                Spacer(modifier = Modifier.height(46.dp))
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(horizontal = 24.dp),
-                    horizontalArrangement = Arrangement.spacedBy(14.dp),
+                    modifier = Modifier
+                        .clip(
+                            shape = RoundedCornerShape(
+                                topStart = 32.dp,
+                                topEnd = 32.dp,
+                            ),
+                        )
+                        .background(
+                            color = MaterialTheme.colorScheme.background,
+                        )
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.tertiary,
+                            shape = RoundedCornerShape(
+                                topStart = 32.dp,
+                                topEnd = 32.dp,
+                            ),
+                        )
+                        .height((configuration.screenHeightDp / 1.42).dp)
+                        .verticalScroll(scrollState)
+                        .align(Alignment.BottomCenter),
                 ) {
-                    items(gameImages) { item ->
-                        GameImageItem(
-                            modifier = Modifier
-                                .height(130.dp)
-                                .clip(shape = MaterialTheme.shapes.medium),
-                            image = item,
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(46.dp))
-                PrimaryButton(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .fillMaxWidth()
-                        .drawWithContent {
-                            drawContent()
-                            drawGlow(radius = 16.dp)
-                        },
-                    text = R.string.install,
-                    onClick = { /*TODO*/ },
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                Text(
-                    modifier = Modifier.padding(horizontal = 24.dp),
-                    text = stringResource(R.string.review_ratings),
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        color = MaterialTheme.colorScheme.primary,
-                    ),
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                for ((index, item) in reviewMessages.withIndex()) {
-                    ReviewMessageItem(
+                    Spacer(modifier = Modifier.height(120.dp))
+                    Text(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        reviewMessage = item
-                    )
-                    if (index != reviewMessages.size - 1) {
-                        Divider(
-                            modifier = Modifier.padding(24.dp),
-                            color = MaterialTheme.colorScheme.primaryContainer,
-                        )
-                    }
-                }
-                Spacer(
-                    modifier = Modifier
-                        .navigationBarsPadding()
-                        .height(24.dp),
-                )
-            }
-            GameLogo(
-                modifier = Modifier
-                    .padding(start = 22.dp)
-                    .align(Alignment.TopStart),
-                logo = R.drawable.dota_2_logo,
-            )
-
-        }
-        Box(
-            modifier = Modifier
-                .height(130.dp)
-                .fillMaxWidth()
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            MaterialTheme.colorScheme.tertiary,
-                            MaterialTheme.colorScheme.tertiary.copy(alpha = 0F),
+                        text = stringResource(id = R.string.dota_2_description),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.primary.copy(alpha = .7F),
                         ),
                     )
-                ),
-        )
+                    Spacer(modifier = Modifier.height(46.dp))
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentPadding = PaddingValues(horizontal = 24.dp),
+                        horizontalArrangement = Arrangement.spacedBy(14.dp),
+                    ) {
+                        items(gameImages) { item ->
+                            GameImageItem(
+                                modifier = Modifier
+                                    .height(130.dp)
+                                    .clip(shape = MaterialTheme.shapes.medium),
+                                image = item,
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(46.dp))
+                    PrimaryButton(
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .fillMaxWidth()
+                            .drawWithContent {
+                                drawContent()
+                                drawGlow(radius = 16.dp)
+                            },
+                        text = R.string.install,
+                        onClick = { /*TODO*/ },
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Text(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.review_ratings),
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            color = MaterialTheme.colorScheme.primary,
+                        ),
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            modifier = Modifier.padding(horizontal = 24.dp),
+                            text = "${ratingModel.rating}",
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                color = MaterialTheme.colorScheme.primary,
+                            ),
+                        )
+                        Spacer(modifier = Modifier.width(18.dp))
+                        Column(verticalArrangement = Arrangement.Center) {
+                            RatingBar(rating = ratingModel.rating)
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = "${stringResource(ratingModel.reviewsCount)} " +
+                                        stringResource(id = R.string.reviews),
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    color = MaterialTheme.colorScheme.secondary,
+                                ),
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(30.dp))
+                    for ((index, item) in reviewMessages.withIndex()) {
+                        ReviewMessageItem(
+                            modifier = Modifier.padding(horizontal = 24.dp),
+                            reviewMessage = item
+                        )
+                        if (index != reviewMessages.size - 1) {
+                            Divider(
+                                modifier = Modifier.padding(24.dp),
+                                color = MaterialTheme.colorScheme.primaryContainer,
+                            )
+                        }
+                    }
+                    Spacer(
+                        modifier = Modifier
+                            .navigationBarsPadding()
+                            .height(24.dp),
+                    )
+                }
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .offset(y = 25.dp)
+                    .clip(
+                        shape = RoundedCornerShape(
+                            topStart = 32.dp,
+                            topEnd = 32.dp,
+                        ),
+                    )
+                    .background(color = MaterialTheme.colorScheme.background)
+                    .fillMaxWidth()
+                    .height(80.dp),
+            )
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .align(Alignment.TopStart),
+                verticalAlignment = Alignment.Bottom,
+            ) {
+                GameLogo(logo = R.drawable.dota_2_logo)
+                Spacer(modifier = Modifier.width(12.dp))
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.dota_2),
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            color = MaterialTheme.colorScheme.primary,
+                        ),
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row {
+                        RatingBar(rating = ratingModel.rating)
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = stringResource(id = R.string.reviews_count),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.primary.copy(
+                                    alpha = .4F
+                                ),
+                            ),
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
+        }
+        BlackLinearGradient(modifier = Modifier.align(Alignment.TopCenter))
     }
 }
 
