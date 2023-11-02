@@ -6,6 +6,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,6 +44,7 @@ import com.effective.android.lab.core.extensions.drawGlow
 import com.effective.android.lab.core_ui.components.BlackLinearGradient
 import com.effective.android.lab.core_ui.components.PrimaryButton
 import com.effective.android.lab.core_ui.components.RatingBar
+import com.effective.android.lab.screens.game_details.presentation.components.CategoryChip
 import com.effective.android.lab.screens.game_details.presentation.components.GameImageItem
 import com.effective.android.lab.screens.game_details.presentation.components.GameLogo
 import com.effective.android.lab.screens.game_details.presentation.components.ReviewMessageItem
@@ -50,6 +53,7 @@ import com.effective.android.lab.screens.game_details.presentation.models.Review
 import com.effective.android.lab.screens.game_details.presentation.models.UserItemUI
 import com.effective.android.lab.ui.theme.EffectiveAndroidLabTheme
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun GameDetailsScreen() {
     val configuration = LocalConfiguration.current
@@ -81,6 +85,11 @@ fun GameDetailsScreen() {
             review = R.string.second_review,
         ),
     )
+    val categoryChipsLabels = listOf(
+        R.string.moba,
+        R.string.multiplayer,
+        R.string.strategy,
+        )
     val scrollState = rememberScrollState()
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -120,13 +129,24 @@ fun GameDetailsScreen() {
                         .verticalScroll(scrollState)
                         .align(Alignment.BottomCenter),
                 ) {
-                    Spacer(modifier = Modifier.height(120.dp))
+                    Spacer(modifier = Modifier.height(90.dp))
+                    FlowRow(
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        categoryChipsLabels.forEach { label ->
+                            CategoryChip(label = label)
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(24.dp))
                     Text(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(id = R.string.dota_2_description),
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            color = MaterialTheme.colorScheme.primary.copy(alpha = .7F),
-                        ),
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = .7F),
+                        style = MaterialTheme.typography.bodySmall,
                     )
                     Spacer(modifier = Modifier.height(46.dp))
                     LazyRow(
@@ -159,18 +179,16 @@ fun GameDetailsScreen() {
                     Text(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.review_ratings),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            color = MaterialTheme.colorScheme.primary,
-                        ),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.labelSmall,
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             modifier = Modifier.padding(horizontal = 24.dp),
                             text = "${ratingModel.rating}",
-                            style = MaterialTheme.typography.labelLarge.copy(
-                                color = MaterialTheme.colorScheme.primary,
-                            ),
+                            color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.labelLarge,
                         )
                         Spacer(modifier = Modifier.width(18.dp))
                         Column(verticalArrangement = Arrangement.Center) {
@@ -179,9 +197,8 @@ fun GameDetailsScreen() {
                             Text(
                                 text = "${stringResource(ratingModel.reviewsCount)} " +
                                         stringResource(id = R.string.reviews),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.secondary,
-                                ),
+                                color = MaterialTheme.colorScheme.secondary,
+                                style = MaterialTheme.typography.bodyMedium,
                             )
                         }
                     }
@@ -229,9 +246,8 @@ fun GameDetailsScreen() {
                 Column {
                     Text(
                         text = stringResource(id = R.string.dota_2),
-                        style = MaterialTheme.typography.labelMedium.copy(
-                            color = MaterialTheme.colorScheme.primary,
-                        ),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.labelMedium,
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Row {
@@ -239,11 +255,8 @@ fun GameDetailsScreen() {
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
                             text = stringResource(id = R.string.reviews_count),
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                color = MaterialTheme.colorScheme.primary.copy(
-                                    alpha = .4F
-                                ),
-                            ),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary.copy(alpha = .4F),
                         )
                     }
                     Spacer(modifier = Modifier.height(10.dp))
