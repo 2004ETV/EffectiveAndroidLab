@@ -26,6 +26,7 @@ import com.effective.android.lab.screens.game_details.presentation.models.Review
 import com.effective.android.lab.screens.game_details.presentation.models.UserItemUI
 import com.effective.android.lab.ui.theme.EffectiveAndroidLabTheme
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 @Composable
@@ -87,7 +88,7 @@ fun ReviewMessageItemPreview() {
                     firstName = R.string.first_user_first_name,
                     lastName = R.string.first_user_last_name
                 ),
-                date = 1550134475000,
+                date = Date(1550134475000),
                 review = R.string.first_review,
             ),
         )

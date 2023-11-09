@@ -19,17 +19,19 @@ private val DarkColorScheme = darkColorScheme(
     secondary = metallicSilver,
     onSecondary = pictonBlue,
     tertiary = Colors.Black,
+    onTertiary = richBlack,
     background = richBlack,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = aliceBlue,
+    primary = Colors.Black,
     onPrimary = sandstorm,
-    primaryContainer = darkGunmetal,
+    primaryContainer = Colors.White,
     secondary = metallicSilver,
     onSecondary = pictonBlue,
-    tertiary = Colors.Black,
-    background = richBlack,
+    tertiary = Colors.White,
+    onTertiary = richBlack,
+    background = cultured,
 )
 
 @Composable

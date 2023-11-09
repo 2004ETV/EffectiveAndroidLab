@@ -40,7 +40,7 @@ fun PrimaryButton(
     ) {
         Text(
             text = stringResource(text),
-            color = MaterialTheme.colorScheme.background,
+            color = MaterialTheme.colorScheme.onTertiary,
             style = MaterialTheme.typography.labelMedium,
         )
     }
