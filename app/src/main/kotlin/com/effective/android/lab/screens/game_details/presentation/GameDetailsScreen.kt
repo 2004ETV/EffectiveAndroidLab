@@ -17,16 +17,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,6 +59,8 @@ import com.effective.android.lab.screens.game_details.presentation.models.Review
 import com.effective.android.lab.screens.game_details.presentation.models.UserItemUI
 import com.effective.android.lab.ui.theme.Dimensions
 import com.effective.android.lab.ui.theme.EffectiveAndroidLabTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.Date
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -92,7 +101,8 @@ fun GameDetailsScreen() {
         R.string.strategy,
         )
     val scrollState = rememberScrollState()
-
+    var isLoading by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -213,8 +223,25 @@ fun GameDetailsScreen() {
                                 drawContent()
                                 drawGlow(radius = 16.dp)
                             },
-                        text = R.string.install,
-                        onClick = { /*TODO*/ },
+                        content = {
+                            if (isLoading) {
+                                CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                            } else {
+                                Text(
+                                    text = stringResource(R.string.install),
+                                    color = MaterialTheme.colorScheme.onTertiary,
+                                    style = MaterialTheme.typography.labelMedium,
+                                )
+                            }
+                        },
+                        onClick = {
+                            isLoading = true
+
+                            coroutineScope.launch {
+                                delay(2000)
+                                isLoading = false
+                            }
+                        },
                     )
                     Spacer(
                         modifier = Modifier

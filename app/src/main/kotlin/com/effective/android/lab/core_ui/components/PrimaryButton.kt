@@ -1,6 +1,5 @@
 package com.effective.android.lab.core_ui.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -19,7 +18,7 @@ import com.effective.android.lab.ui.theme.EffectiveAndroidLabTheme
 @Composable
 fun PrimaryButton(
     modifier: Modifier = Modifier,
-    @StringRes text: Int,
+    content: @Composable () -> Unit,
     onClick: () -> Unit,
 ) {
     Button(
@@ -38,11 +37,7 @@ fun PrimaryButton(
         shape = MaterialTheme.shapes.small,
         onClick = onClick,
     ) {
-        Text(
-            text = stringResource(text),
-            color = MaterialTheme.colorScheme.onTertiary,
-            style = MaterialTheme.typography.labelMedium,
-        )
+        content()
     }
 }
 
@@ -61,7 +56,13 @@ fun PrimaryButtonPreview() {
                     vertical = 20.dp,
                 )
                 .width(260.dp),
-            text = R.string.install,
+            content = {
+                Text(
+                    text = stringResource(R.string.install),
+                    color = MaterialTheme.colorScheme.onTertiary,
+                    style = MaterialTheme.typography.labelMedium,
+                )
+            },
             onClick = { /*TODO*/ },
         )
     }
