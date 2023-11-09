@@ -10,3 +10,15 @@ val shapes = Shapes(
     large = RoundedCornerShape(size = 20.dp),
     extraLarge = RoundedCornerShape(size = 32.dp),
 )
+
+abstract  class Dimensions {
+    companion object {
+        const val EXTRA_SMALL = 10
+        const val TINY_SMALL = 14
+        const val SMALL = 20
+        const val MEDIUM_SMALL = 24
+        const val MEDIUM = 32
+        const val LARGE = 46
+        const val EXTRA_LARGE = 90
+    }
+}
